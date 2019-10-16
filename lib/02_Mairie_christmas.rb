@@ -2,7 +2,8 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'json'
-
+require 'google_drive'
+require 'csv'
 
 
 def get_townhall_city
@@ -95,6 +96,31 @@ end
 
 
 
+def save_as_Spreadsheet
+
+	session = GoogleDrive::Session.from_config("../config.json")
+
+	ws = session.spreadsheet_by_key("1S7XbH1fDllDDO0ZCPnlcJO3s0ttwi78a9IpBnEZOMas").worksheets[0]
+
+
+
+end
+
+
+
+def save_as_csv
+
+	CSV.open("../db/emails.csv", "w") do |csv|
+		hash.each do |i|
+			i.each do |element|
+				csv << element
+			end
+		end
+	end
+
+end
+
+
 
 
 
@@ -109,4 +135,6 @@ end
 #puts get_townhall_urls  #retourne les mails,
 
 puts hash
-save_as_JSON
+#save_as_JSON
+save_as_csv
+#save_as_Spreadsheet
